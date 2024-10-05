@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import styles from "./ContactForm.module.css";
-import { profileSchemas } from "../utils/schemas";
+import { profileSchemas } from "../../utils/schemas";
 import { ErrorMessage } from "formik";
 
 const ContactForm = ({ onAdd }) => {
