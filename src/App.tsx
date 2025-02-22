@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import initialContacts from "./contacts.json";
 import ContactList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
 import ContactForm from "./components/ContactForm/ContactForm";
+import { ContactType } from "./types";
 
-function App() {
-  const [contacts, setContacts] = useState(() => {
+const App: React.FC = () => {
+  const [contacts, setContacts] = useState<ContactType[]>(() => {
     const stringifiedContacts = localStorage.getItem("contacts");
-    const parsedContacts = JSON.parse(stringifiedContacts) ?? initialContacts;
+    const parsedContacts: ContactType[] =
+      JSON.parse(stringifiedContacts || "[]") ?? initialContacts;
     return parsedContacts;
   });
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState<string>("");
 
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -23,13 +23,13 @@ function App() {
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 
-  const onAddContacts = (newContact) => {
+  const onAddContacts = (newContact: ContactType) => {
     setContacts((prevContacts) => {
       return [...prevContacts, newContact];
     });
   };
 
-  const onDeleteContacts = (contactId) => {
+  const onDeleteContacts = (contactId: string) => {
     setContacts((prevContacts) => {
       return prevContacts.filter((contact) => contact.id !== contactId);
     });
@@ -45,6 +45,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
 export default App;

@@ -4,9 +4,18 @@ import { Formik, Form, Field } from "formik";
 import styles from "./ContactForm.module.css";
 import { profileSchemas } from "../../utils/schemas";
 import { ErrorMessage } from "formik";
+import { ContactType } from "../../types";
+import { FormikHelpers } from "formik";
 
-const ContactForm = ({ onAdd }) => {
-  const handleSubmit = (values, { resetForm }) => {
+type ContactFormProp = {
+  onAdd: (contact: ContactType) => void;
+};
+
+const ContactForm: React.FC<ContactFormProp> = ({ onAdd }) => {
+  const handleSubmit = (
+    values: { name: string; number: string },
+    { resetForm }: FormikHelpers<{ name: string; number: string }>
+  ) => {
     onAdd({
       name: values.name,
       number: values.number,
